@@ -111,6 +111,45 @@ tabla.prototype.doQuery = function (query) {
     })
 }
 
+// Realizar update.
+tabla.prototype.update = function (datos, condicion) {
+    // Creacion del sql.
+    var sql = "UPDATE " + this.nombre + " SET "
+
+    // Creando la string con las columnas.
+    for (var i = 0; i < this.cols.length; i++) {
+        if (this.types[i] == "string") {
+            if (i == 0) {
+                sql = sql + util.format("%s", this.cols[i])
+                sql = sql + util.format(" = '%s'", datos[i])
+            } else {
+                sql = sql + util.format(", %s", this.cols[i])
+                sql = sql + util.format(" = '%s'", datos[i])
+            }
+        } else {
+            if (i == 0) {
+                sql = sql + util.format("%s", this.cols[i])
+                sql = sql + util.format(" = %s", datos[i])
+            } else {
+                sql = sql + util.format(", %s", this.cols[i])
+                sql = sql + util.format(" = %s", datos[i])
+            }
+        }
+    }
+
+
+
+    sql = sql + " " + condicion
+
+    this.conn.query(sql, (err, result) => {
+        if (err) throw err
+        console.log("Actualizado")
+    })
+
+
+    console.log(sql)
+}
+
 var a = new tabla("usuarios", conn)
 a.setCols(["user", "contra"])
 a.setTypes( ["string", "string"])
@@ -123,3 +162,5 @@ a.delete("user", "user")
 a.doQuery("user = 'hola'").then((resultado) => {
     console.log(resultado)
 })
+
+a.update(["hola", "mundo"], "WHERE user = 'hola'")
