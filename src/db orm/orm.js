@@ -1,5 +1,6 @@
 var mysql = require("mysql")
 var util = require("util")
+var _ = require("underscore")
 
 var conn = mysql.createConnection({
     host: "localhost",
@@ -12,6 +13,7 @@ var conn = mysql.createConnection({
 function tabla(nombre, conn) {
     this.nombre = nombre
     this.conn = conn
+    this.resultados = null
 }
 
 // Get y set.
@@ -85,7 +87,29 @@ tabla.prototype.delete = function (key, id) {
     }
 }
 
-
+// Realizar querys.
+tabla.prototype.doQuery = function (query) {
+    return new Promise((res, rej) => {
+        // Especificacion de la consulta.
+        if (query == null) {
+            this.conn.query(util.format("SELECT * FROM %s", this.nombre), function (err, result, fields) {
+                if (err) {
+                    rej(new Error())
+                } else {
+                    res(result)
+                }
+            });
+        } else {
+            this.conn.query(util.format("SELECT * FROM %s WHERE %s", this.nombre, query), function (err, result, fields) {
+                if (err) {
+                    rej(new Error())
+                } else {
+                    res(result)
+                }
+            });
+        }
+    })
+}
 
 var a = new tabla("usuarios", conn)
 a.setCols(["user", "contra"])
@@ -94,3 +118,8 @@ a.setTypes( ["string", "string"])
 a.insert(["user", "2"])
 a.insert(["hola", "xD"])
 a.delete("user", "user")
+
+// Funciones asincronas.
+a.doQuery("user = 'hola'").then((resultado) => {
+    console.log(resultado)
+})
