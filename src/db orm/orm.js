@@ -6,7 +6,7 @@ var conn = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
-    database: "test"
+    database: "serviciosocial_1"
 })
 
 // Clase y constructor.
@@ -150,6 +150,7 @@ tabla.prototype.update = function (datos, condicion) {
     console.log(sql)
 }
 
+/* ----- EJEMPLOS DE USO ------ 
 var a = new tabla("usuarios", conn)
 a.setCols(["user", "contra"])
 a.setTypes( ["string", "string"])
@@ -164,3 +165,7 @@ a.doQuery("user = 'hola'").then((resultado) => {
 })
 
 a.update(["hola", "mundo"], "WHERE user = 'hola'")
+*/
+
+exports.conn = conn;
+exports.tabla = tabla;

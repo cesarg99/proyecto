@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Formulario de Registro</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="container" style="margin-top: 50px;">
+
+	
+
+    <div class="card"> 
+    	<div class="card-header">
+		Aplicar al servicio social
+		</div>
+        <div class="card-body">
+            <form action="/registrado" method="post">
+                <div class="form-group">
+                    <label>Carnet: </label>
+                    <input type="text" class="form-control" name="carnet" >
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="nombres"  >
+                </div>
+                <div class="form-group">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control" name="apellidos"  >
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <input type="text" class="form-control" name="telefono"  >
+              
+                </div>
+                <div class="form-group">
+                    
+                   
+                    <label for="carrera">Carrera:</label>
+
+                    <select id="carrera" name="carrera">
+                      <option value="Ingenieria Agroindustrial">Ingenieria Agroindustrial</option>
+                      <option value="Licenciatura en Informatica Educativa">Licenciatura en Informatica Educativa</option>
+                      <option value="Licenciatura en la Enseñanza de Ingles">Licenciatura en la Enseñanza de Ingles</option>
+                      <option value="Ingenieria Industrial">Ingenieria Industrial</option>
+                      <option value="Ingeniería de Sistemas Informáticos">Ingeniería de Sistemas Informáticos</option>
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label for="facultad">Carrera:</label>
+
+                    <select id="facultad" name="facultad">
+                      <option value="Facultad de Odontología">Facultad de Odontología</option>
+                      <option value="Facultad de Ciencias y Humanidades">Facultad de Ciencias y Humanidades</option>
+                      <option value="Facultad de Ciencias Agronomicas">Facultad de Ciencias Agronomicas</option>
+                      <option value="Facultad de Ingenieria y Arquitectura">Facultad de Ingenieria y Arquitectura</option>
+                      <option value="Facultad de Ciencias Economicas">Ingeniería de Sistemas Informáticos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Area</label>
+                    <input type="text" class="form-control" name="area"  >
+                </div>
+                <div class="form-group">
+                    <label>Codigo Carrera</label>
+                    <select id="facultad" name="codigocarrera">
+                        <option value="D10101">D10101</option>
+                        <option value="F10101">F10202</option>
+                        <option value="A10101">A10303</option>
+                        <option value="B10101">B10404</option>
+                        <option value="E10101">E10505</option>
+                      </select>
+
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email"  >
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <input type="text" class="form-control" name="estado"  >
+                </div>
+              
+                <div class="form-group">
+                    <label>Docente Encargado:</label><br>
+ 
+    <% doce.forEach(function(item) { %> 
+        <input type="radio" id="idtutor" name="idtutor" value="<%= item.idtutor %>"
+        checked>
+    <label for="idtutor"><%= item.nombres %></label><br>
+    <% }); %>
+
+ 
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-info" value="Registrar"/>
+                </div>
+                
+            </form>
+          
+        </div>
+    </div>
+
+</body>
+</html>

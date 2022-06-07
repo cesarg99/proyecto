@@ -1,49 +1,22 @@
-const express = require('express');
-const morgan = require('morgan');
-const { engine } = require('express-handlebars');
-
-const path = require('path');
-
-//inicializar Express
-const aplicacion = express();
-
-//Configuracion
-aplicacion.set('port', process.allowedNodeEnvironmentFlags.PORT || 4000);
-aplicacion.set('views', path.join(__dirname,'views'));
-aplicacion.engine('.hbs', engine({
-defaultLayout: 'main',
-layoutDir: path.join(aplicacion.get('views'), 'layouts'),
-partialsDir: path.join(aplicacion.get('views'), 'partials'),
-extname:'.hbs',
-helpers: require('./librerias/handlebars')
-
-}));
-
-aplicacion.set('view engine', '.hbs');
-aplicacion.use(morgan('dev'));
-aplicacion.use(express.urlencoded({extended: false}));
-aplicacion.use(express.json());
-
-//Variables Globales
-aplicacion.use((req, res, next) =>{
-    next();
-});
+var express = require("express")
+var path = require("path")
+var bodyParser = require("body-parser")
+var flash = require("connect-flash")
+var app = express()
 
 
-//Rutas
-aplicacion.use(require('./rutas'));
-aplicacion.use(require('./rutas/authentication'));
-aplicacion.use('/links',require('./rutas/links'));
+// Config
+app.set("port", 3000)
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"))
+
+// Middleware.
+// app.use(flash())
+app.use(bodyParser.urlencoded({ extend: false}))
+app.use(bodyParser.json())
+app.use(require("./routes/index.js"))
 
 
-
-//Archivos Publicos
-
-aplicacion.use(express.static(path.join(__dirname, 'public')));
-
-
-//Iniciar el servidor
-aplicacion.listen(aplicacion.get('port'), () => {
-
-console.log('Server en puerto', aplicacion.get('port'));
-});
+app.listen(app.get("port"), () => {
+    console.log("Corriendo")
+})

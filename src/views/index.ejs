@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    
+
+    <table border="1px">
+        <tr>
+            <th>Usuario</th>
+            <th>Password</th>
+        </tr>
+        <!-- Prueba de un crud dinamico -->
+        <% for(var i=0; i < resultado.length; i++) { %>
+            <tr id="id_<%= i %>">
+            <td id="td_1">
+                
+                <% var user =  resultado[i].user %>
+                <%= user %>
+            </td>
+            <td id="td_2">
+                <%= resultado[i].contra %>
+            </td>
+            <td>
+                <button id="delete_<%= i %>" onclick="deleteFunction('<%= user %>', '<%= i %>')">Delete</button>
+            </td>
+            <td>
+                <button id="update_<%= i %>" onclick="updateFunction('<%= user %>', '<%= i %>')">Update</button>
+            </td>
+            <tr>
+        <% } %>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+            function deleteFunction(id, i) {
+
+                $(() => {
+                    // USAR #ID PARA ID NO OLVIDA
+                    $("#id_" + i).remove()
+                })
+                console.log("id_" + i)
+                
+
+                var http = new XMLHttpRequest()
+
+                http.onreadystatechange = () => {
+                    if(this.readyState == 4 && this.status == 200){
+                        console.log(id)
+                        console.log("id_" + i)
+                    }
+                }
+
+                http.open("GET", "/deleted?user=" + id)
+                http.send()
+                
+            }
+            // horas.
+            // 2, 6
+            // 2, 4
+            2 // fechaActual. fecha final.
+            4 // fechaActual. fecha final.
+            2 // fechaActual.
+
+            // 8
+
+            // vistas.
+            // -- Estudiante.
+            // horas. semi crud. y total.
+            // -- Admin.
+            // horas. semi crud.
+            // estado finalizado.
+            // registro estudiante.
+
+
+            // Inicio.
+            // final.
+
+
+
+
+
+
+
+            function updateFunction(id, i){
+                $(() => {
+                    // Sancando los valores.
+                    // Sacar valor entre etiquetas.
+                    var user = $("#td_1").text()
+                    var cont = $("#td_2").text()
+
+                    var datos = prompt("Ingresa usuario")
+                    var a = prompt("Ingresa usuario")
+
+                    $("#td_1").text(datos)
+
+                    var http = new XMLHttpRequest()
+
+                    http.onreadystatechange = () => {
+                        if(this.readyState == 4 && this.status == 200){
+                            console.log(id)
+                            console.log("id_" + i)
+                        }
+                    }
+
+                    http.open("GET", "/deleted?user=" + id)
+                    http.send()
+
+                    alert(datos)
+                })
+            }
+    </script>
+    
+    </body>
+
+</html>
