@@ -146,20 +146,11 @@ router.get("/inicioRegistro", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
 
-// Visualizar pagina select y hacer consulta
-router.get('/add', function(req, res, next) {    
-    // render de add.ejs
-    dbConn.query('SELECT * FROM docente', function (err, rs){
-res.render('social/add', {doce: rs});
-
-    })
- })
-
 
 // Visualizar pagina inicioestudiante y hacer consulta de select estudiante
 router.get('/inicioestudiante', function(req, res, next) {    
-    dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado1){
-        res.render('social/inicioestudiante', {datosnombre: resultado1});
+    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado1){
+        res.render('./inicioestudiante', {datosnombre: resultado1});
         
             })
  })
@@ -171,15 +162,15 @@ router.get('/inicioestudiante', function(req, res, next) {
 router.get('/progreso1', function(req, res, next) {    
     // render de progreso1.ejs
 
-    dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado2) {
+    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado2) {
         if (err) {
           return console.log('error: ' + err.message);
         }
-        dbConn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado3) {
+        conn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado3) {
           if (err) {
             return console.log('error: ' + err.message);
           }
-          res.render('social/progreso1', {
+          res.render('./progreso1', {
             datosestudiante: resultado2,
             datoscontrol: resultado3
           });
@@ -195,15 +186,15 @@ router.get('/registrarhoras', function(req, res, next) {
 
 // render de resgitrarhoras.ejs
 
-dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado4) {
+    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado4) {
     if (err) {
       return console.log('error: ' + err.message);
     }
-    dbConn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado5) {
+    conn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado5) {
       if (err) {
         return console.log('error: ' + err.message);
       }
-      res.render('social/registrarhoras', {
+      res.render('./registrarhoras', {
         datosestudiante2: resultado4,
         datoscontrol2: resultado5
       });
@@ -215,8 +206,8 @@ dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, re
 // Visualizar pagina registrarhoras2 y hacer consulta de select para obtener el carnet del estudiante logueado para luego insertar en tabla
 
 router.get('/registrarhoras2', function(req, res, next) {    
- dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado6){
-   res.render('social/registrarhoras2', {datoscarnet: resultado6});
+ conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado6){
+   res.render('./registrarhoras2', {datoscarnet: resultado6});
         
        })
 })
@@ -250,13 +241,13 @@ router.post('/registrarhoras2', function(req, res, next) {
       }
       
       // Insertar horas
-      dbConn.query('INSERT INTO controlhoras SET ?', datos_horas, function(err, resultado7) {
+      conn.query('INSERT INTO controlhoras SET ?', datos_horas, function(err, resultado7) {
           //if(err) throw err
           if (err) {
               req.flash('error', err)
                
               // render to registrarhoras2.ejs
-              res.render('social/registrarhoras2', {
+              res.render('./registrarhoras2', {
                   numhoras: datos_horas.numhoras,
                   fechainicio: datos_horas.fechainicio,
                   fechafinal: datos_horas.fechafinal,
@@ -293,7 +284,7 @@ router.post('/progreso1', function(req, res, next) {
       }
       
       // Insertar estado
-      dbConn.query("UPDATE estudiante SET ? WHERE carnet='CG19030'", dato_estado, function(err, resultado8) {
+      conn.query("UPDATE estudiante SET ? WHERE carnet='CG19030'", dato_estado, function(err, resultado8) {
           //if(err) throw err
           if (err) {
               req.flash('error', err)
