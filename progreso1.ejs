@@ -1,0 +1,93 @@
+
+<div id="nav">
+    <div class="titulonav">
+    Opciones
+    </div>
+    
+    <div class="cuerporec">
+    <ul>
+       <li><a href="./inicioestudiante">Inicio</a></li>
+       <li><a href="./progreso1">Mi progreso</a></li>
+       <li><a href="./registrarhoras">Registrar Horas</a></li>
+       <li><a href="#">Otro</a></li>
+    </ul>
+    </div>
+ </div>
+<!-- TABLA DATOS ESTUDIANTE -->
+
+<table border="2px">
+    <tr>
+        <td>Nombre</td>
+        <td>Apellido</td>
+        <td>Estado</td>
+
+    </tr> 
+    <% datosestudiante.forEach(function(item) { %> 
+
+        <tr>
+            <td><%= item.nombres %></td>
+            <td><%= item.apellidos %></td>
+            <td><%= item.estado %></td>
+           
+        </tr>
+       
+<% }); %> 
+      
+</table>
+
+<!-- Numero de horas-->
+
+<table border="6px">
+    <tr>
+        <td>Numero de Horas</td>
+    </tr>
+    
+    <% datoscontrol.forEach(function(item2) { %> 
+    
+    <tr>
+        <td>  <%= item2.numhoras %> </td>
+    </tr>
+    <% }); %> 
+</table>
+
+
+
+<!-- Calcular total horas -->
+
+<table border="2px">
+<tr>
+<td>
+<% var suma = 0;  %>
+<% datoscontrol.forEach(function(item3){ %>
+<% suma += item3.numhoras %> 
+    
+<% }); %>
+
+<% if (suma>=100) {%>
+    <br>
+    <label>Horas Alcanzadas</label>
+    <br>
+    <%= suma %>
+    <br>
+    <% datosestudiante.forEach(function(item) { %> 
+       
+    <% if(item.estado=='en proceso') { %>
+    <form method="POST">
+    <label><input type="checkbox" name="estado" id="estado" value="en revision" checked>
+    Enviar proceso de servicio social (debe enviar solo una vez)</label>
+    <br>
+    <br> 
+                      <button>Enviar</button>
+                      <br>
+</form>
+<% } %>
+<% }); %> 
+    <% }else{ %>
+    <label>Total Horas</label>
+    <br>
+     <%= suma %>
+    <%  } %>
+
+</td>
+</tr>
+</table>
