@@ -141,4 +141,177 @@ router.get("/inicioRegistro", (req, res) => {
     })
 })
 
+
+//////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+// Visualizar pagina select y hacer consulta
+router.get('/add', function(req, res, next) {    
+    // render de add.ejs
+    dbConn.query('SELECT * FROM docente', function (err, rs){
+res.render('social/add', {doce: rs});
+
+    })
+ })
+
+
+// Visualizar pagina inicioestudiante y hacer consulta de select estudiante
+router.get('/inicioestudiante', function(req, res, next) {    
+    dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado1){
+        res.render('social/inicioestudiante', {datosnombre: resultado1});
+        
+            })
+ })
+
+
+ 
+// Visualizar pagina progreso estudiante y hacer consulta(se utilizo doble consulta por que cada una se mantiene en un arreglo)
+//Si se hace una consulta no hay problema, pero al momento de llamarlo con el foreach no se puede debido al arreglo por eso se coloco en distintos
+router.get('/progreso1', function(req, res, next) {    
+    // render de progreso1.ejs
+
+    dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado2) {
+        if (err) {
+          return console.log('error: ' + err.message);
+        }
+        dbConn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado3) {
+          if (err) {
+            return console.log('error: ' + err.message);
+          }
+          res.render('social/progreso1', {
+            datosestudiante: resultado2,
+            datoscontrol: resultado3
+          });
+        });
+      });
+ 
+ })
+
+
+ // Visualizar pagina agregarhoras 
+router.get('/registrarhoras', function(req, res, next) {    
+    
+
+// render de resgitrarhoras.ejs
+
+dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado4) {
+    if (err) {
+      return console.log('error: ' + err.message);
+    }
+    dbConn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado5) {
+      if (err) {
+        return console.log('error: ' + err.message);
+      }
+      res.render('social/registrarhoras', {
+        datosestudiante2: resultado4,
+        datoscontrol2: resultado5
+      });
+    });
+  });
+    
+ })
+
+// Visualizar pagina registrarhoras2 y hacer consulta de select para obtener el carnet del estudiante logueado para luego insertar en tabla
+
+router.get('/registrarhoras2', function(req, res, next) {    
+ dbConn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado6){
+   res.render('social/registrarhoras2', {datoscarnet: resultado6});
+        
+       })
+})
+
+
+
+
+
+// Agregar nuevas horas
+router.post('/registrarhoras2', function(req, res, next) {    
+
+  let numhoras = req.body.numhoras;
+  let fechainicio = req.body.fechainicio;
+  let fechafinal = req.body.fechafinal;
+  let institucion = req.body.institucion;
+  let carnet = req.body.carnet;
+  let errors = false;
+
+ 
+
+  // Si no hay errores
+  if(!errors) {
+
+      var datos_horas = {
+          numhoras: numhoras,
+          fechainicio: fechainicio,
+          fechafinal: fechafinal,
+          institucion: institucion,
+          carnet: carnet
+          
+      }
+      
+      // Insertar horas
+      dbConn.query('INSERT INTO controlhoras SET ?', datos_horas, function(err, resultado7) {
+          //if(err) throw err
+          if (err) {
+              req.flash('error', err)
+               
+              // render to registrarhoras2.ejs
+              res.render('social/registrarhoras2', {
+                  numhoras: datos_horas.numhoras,
+                  fechainicio: datos_horas.fechainicio,
+                  fechafinal: datos_horas.fechafinal,
+                  institucion: datos_horas.institucion,
+                  carnet: datos_horas.carnet
+              })
+          } else {                
+            
+            res.send('Horas registradas ');
+            
+          }
+      })
+  }
+})
+
+
+
+// Agregar estado al estudiante al terminar las horas
+router.post('/progreso1', function(req, res, next) {    
+
+
+  let estado = req.body.estado;
+  let errors = false;
+
+ 
+
+  // Si no hay errores
+  if(!errors) {
+
+      var dato_estado = {
+
+        estado: estado
+          
+      }
+      
+      // Insertar estado
+      dbConn.query("UPDATE estudiante SET ? WHERE carnet='CG19030'", dato_estado, function(err, resultado8) {
+          //if(err) throw err
+          if (err) {
+              req.flash('error', err)
+               
+              // render to registrarhoras2.ejs
+              res.render('social/progreso1', {
+                estado: datos_horas.estado
+              })
+          } else {                
+            
+            res.send('Proceso social enviado correctamente');
+            
+          }
+      })
+  }
+})
+
+
+
+
 module.exports = router
