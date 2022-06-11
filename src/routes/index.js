@@ -1,5 +1,7 @@
+const { Console } = require("console")
 var express = require("express")
 var router = express.Router()
+var axios = require("axios")
 
 // Handler de tablas de base de datos.
 var conn = require("../db orm/orm").conn
@@ -8,7 +10,7 @@ var util = require("util")
 
 // Variables globales del usuario.
 var nombreUser = null
-
+var idtutor = null
 // Rutas.
 router.get("/", (req, res) => {
     var user = req.body.user
@@ -40,7 +42,7 @@ router.get("/deleted", (req, res) => {
     console.log(user)
 })
 
-
+// ==== LOGIN FINAL ====
 router.get("/login", (req, res) => {
     res.render("login")
 })
@@ -67,21 +69,22 @@ router.post("/registrado", (req, res) => {
     res.render("registrado", { user })
 })*/
 
+
+// ===== LOGEADO FINAL ====
 router.post("/logeado", (req, res) => {
     // Recibiendo argumentos de formulario.
     
-
     var user = req.body.user
     var pass = req.body.password
     var tipo = req.body.tutor
 
-    global.nombreUser = user
-    console.log(tipo)
+    
 
-
-
+    // global.nombreUser = user
+    //console.log(tipo)
+    console.log(pass)
     console.log(user)
-
+    console.log(tipo)
     // Registro en base de datos.
     var tbUsuarios = new tabla("estudiante", conn)
     tbUsuarios.setCols(["carnet", "pass", "nombres", "apellidos", "telefono", "carrera", "facultad", "area", "codigocarrera", "email", "estado", "idtutor"])
@@ -93,11 +96,14 @@ router.post("/logeado", (req, res) => {
 
     // Confirmacion del registro y busqueda del usuario.
     console.log("SELECT USER FROM " + tbTutores.nombre + " WHERE user = '" + user + "'")
+    console.log(tipo)
     if (tipo == true) {
         tbTutores.doQuery("usuario = '" + user + "'").then((resultado) => {
             if (user == resultado[0].usuario && pass == resultado[0].pass) {
                 console.log("Has iniciado sesion!")
-                res.render("logeado", { user, tipo })
+                global.nombreUser = user
+                global.idtutor = resultado[0].idtutor
+                res.redirect("crud_horas?tutor=" +  user)
             } else {
                 console.log("Error datos incorrectos")
                 res.render("errorInicio")
@@ -111,8 +117,11 @@ router.post("/logeado", (req, res) => {
     } else {
         tbUsuarios.doQuery("carnet = '" + user + "'").then((resultado) => {
             if (user == resultado[0].carnet && pass == resultado[0].pass) {
-                console.log("Has iniciado sesion!")
-                res.render("logeado", { user })
+                console.log("Has iniciado sesion! xD")
+                //console.log(resultado[0])
+                global.nombreUser = user
+                res.redirect("inicioestudiante?user=" + resultado[0].carnet)
+
             } else {
                 console.log("Error datos incorrectos")
                 res.render("errorInicio")
@@ -125,6 +134,7 @@ router.post("/logeado", (req, res) => {
         })
     }
     
+
 
     
 })
@@ -175,11 +185,11 @@ router.get("/inicioRegistro", (req, res) => {
 })
 
 
-<<<<<<< HEAD
 // Modulo del tutor.
 router.get("/crud_horas", (req, res) => {
     console.log("entrando")
-    conn.query("select estudiante.carnet as carnet, estudiante.nombres as nombre, estudiante.apellidos apellido, docente.nombres tutornombres, sum(controlhoras.numhoras) as total, estudiante.estado as estado from estudiante inner join docente on estudiante.idtutor = docente.idtutor inner join controlhoras on estudiante.carnet = controlhoras.carnet group by estudiante.carnet", (err, rs) => {
+    console.log(global.idtutor)
+    conn.query("select estudiante.carnet as carnet, estudiante.nombres as nombre, estudiante.apellidos apellido, docente.nombres tutornombres, sum(controlhoras.numhoras) as total, estudiante.estado as estado from estudiante inner join docente on estudiante.idtutor = " + global.idtutor + " inner join controlhoras on estudiante.carnet = controlhoras.carnet group by estudiante.carnet", (err, rs) => {
         res.render("crud_horas", { resultado:rs})
         
     })
@@ -206,28 +216,20 @@ router.get("/estudianteEstado", (req, res) => {
     
 })
 
-=======
-//////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-
 // Visualizar pagina inicioestudiante y hacer consulta de select estudiante
-router.get('/inicioestudiante', function(req, res, next) {    
-    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado1){
-        res.render('./inicioestudiante', {datosnombre: resultado1});
-        
-            })
- })
+router.get('/inicioestudiante', function (req, res, next) {
+    var user = global.nombreUser
+    res.render("inicioestudiante", {user})
+})
 
 
- 
+
 // Visualizar pagina progreso estudiante y hacer consulta(se utilizo doble consulta por que cada una se mantiene en un arreglo)
 //Si se hace una consulta no hay problema, pero al momento de llamarlo con el foreach no se puede debido al arreglo por eso se coloco en distintos
 router.get('/progreso1', function(req, res, next) {    
     // render de progreso1.ejs
 
-    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado2) {
+    conn.query("SELECT * FROM estudiante WHERE carnet='" + global.nombreUser + "'", function(err, resultado2) {
         if (err) {
           return console.log('error: ' + err.message);
         }
@@ -251,11 +253,11 @@ router.get('/registrarhoras', function(req, res, next) {
 
 // render de resgitrarhoras.ejs
 
-    conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function(err, resultado4) {
+    conn.query("SELECT * FROM estudiante WHERE carnet='" + global.nombreUser + "'", function(err, resultado4) {
     if (err) {
       return console.log('error: ' + err.message);
     }
-    conn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado5) {
+    conn.query("SELECT * FROM controlhoras WHERE carnet='" + global.nombreUser + "'", function(err, resultado5) {
       if (err) {
         return console.log('error: ' + err.message);
       }
@@ -271,7 +273,7 @@ router.get('/registrarhoras', function(req, res, next) {
 // Visualizar pagina registrarhoras2 y hacer consulta de select para obtener el carnet del estudiante logueado para luego insertar en tabla
 
 router.get('/registrarhoras2', function(req, res, next) {    
- conn.query("SELECT * FROM estudiante WHERE carnet='CG19030'", function (err, resultado6){
+ conn.query("SELECT * FROM estudiante WHERE carnet='" + global.nombreUser + "'", function (err, resultado6){
    res.render('./registrarhoras2', {datoscarnet: resultado6});
         
        })
@@ -349,7 +351,7 @@ router.post('/progreso1', function(req, res, next) {
       }
       
       // Insertar estado
-      conn.query("UPDATE estudiante SET ? WHERE carnet='CG19030'", dato_estado, function(err, resultado8) {
+      conn.query("UPDATE estudiante SET ? WHERE carnet='" + global.nombreUser + "'", dato_estado, function(err, resultado8) {
           //if(err) throw err
           if (err) {
               req.flash('error', err)
@@ -368,7 +370,4 @@ router.post('/progreso1', function(req, res, next) {
 })
 
 
-
-
->>>>>>> 136ab2becdcf70ed94469a5d971d596c47ad6c75
 module.exports = router
