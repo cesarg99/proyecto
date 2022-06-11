@@ -1,0 +1,41 @@
+<div id="nav">
+    <div class="titulonav">
+    Opciones
+    </div>
+    
+    <div class="cuerporec">
+    <ul>
+       <li><a href="./inicioestudiante">Inicio</a></li>
+       <li><a href="./progreso1">Mi progreso</a></li>
+       <li><a href="./registrarhoras">Registrar Horas</a></li>
+       <li><a href="#">Otro</a></li>
+    </ul>
+    </div>
+ </div>
+
+<br>
+
+ 
+<form method="POST">
+<div>Numero de Horas: <input name="numhoras" required/></div>
+<div>Fecha Inicio: <input type="date" name="fechainicio" required/></div>
+<div>Fecha Final: <input type="date" name="fechafinal" required/></div>
+<div>Institucion: <input name="institucion" required/></div>
+ 
+<% datoscarnet.forEach(function(item) { %> 
+<div>Carnet:
+   <label>Codigo Carrera</label>
+   <select id="carnet" name="carnet">
+       <option value="<%= item.carnet %>"><%= item.carnet %></option>
+     </select>
+</div>
+<% }); %>
+            
+                      <br> <br> <br>
+                      <button>Guardar</button>
+                      <br>
+                    
+
+</form>
+
+

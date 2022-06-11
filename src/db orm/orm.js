@@ -3,10 +3,10 @@ var util = require("util")
 var _ = require("underscore")
 
 var conn = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    database: "serviciosocial_1"
+	host:'localhost',
+	user:'root',
+	password:'',
+	database:'serviciosocial'
 })
 
 // Clase y constructor.
