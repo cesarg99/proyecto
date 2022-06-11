@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <label>Hola</label>
+        
+        <table>
+            <tr>
+                <th>carnet</th>
+                <th>estudiante nombres</th>
+                <th>estudiante apellidos</th>
+                <th>tutor nombres</th>
+                <th>total horas</th>
+                <th>estado</th>
+            </tr>
+            <% for(var i = 0; i < resultado.length; i++) { %>
+                <tr id="id_<%= i %>">
+                    <td><%= resultado[i].carnet %></td>
+                    <td><%= resultado[i].nombre %></td>
+                    <td><%= resultado[i].apellido %></td>
+                    <td><%= resultado[i].tutornombres %></td>
+                    <td><%= resultado[i].total %></td>
+                    <td><%= resultado[i].estado %></td>
+                    <label><%= JSON.stringify(resultado[i]) %></label>
+                    <td id="idtd_<%= i %>"><button onclick="fAprobar(<%= JSON.stringify(resultado[i]) %>)">Aprobar</button></td>
+                    <script>
+                        // Dentro de jquey se utiliza ejs.
+                        // Refrescar jquery en cada carga.
+                        $((window).onload("load", () => {
+                        if(<%= resultado[i].total %> < 250) {
+                            $("#idtd_" + <%= i %>).hide()
+                        }else{
+                            $("#idtd_" + <%= i %>).show()
+                        }
+                        })
+                        
+                    </script>
+                    
+                </tr>
+                
+            <% } %>
+        </table>
+        <style>
+            table, td{
+                border: 1px solid;
+            }
+        </style>    
+
+        <script>
+            function fAprobar(resultado) {
+                // Peticion al servidor asincrona.
+                var http = new XMLHttpRequest()
+
+                http.onreadystatechange = function() {
+                if (http.readyState == 4) { // xmlhttp.status==200 == successful request
+                        // What you want here
+                        window.location.href("/crud_horas")
+                    }
+                }
+
+                http.open("GET", "/estudianteEstado?resultado=" + JSON.stringify(resultado))
+                http.send()
+                window.location.reload()
+                
+                
+            }
+        </script>
+    </body>
+</html>
