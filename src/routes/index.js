@@ -2,6 +2,7 @@ const { Console } = require("console")
 var express = require("express")
 var router = express.Router()
 var axios = require("axios")
+var bcrypt = require("bcryptjs")
 
 // Handler de tablas de base de datos.
 var conn = require("../db orm/orm").conn
@@ -78,12 +79,15 @@ router.post("/logeado", (req, res) => {
     
     var user = req.body.user
     var pass = req.body.password
+    console.log(pass)
     var tipo = req.body.tutor
 
     
 
+    
     // global.nombreUser = user
     //console.log(tipo)
+    console.log("Inicio del valor e inicio")
     console.log(pass)
     console.log(user)
     console.log(tipo)
@@ -101,44 +105,41 @@ router.post("/logeado", (req, res) => {
     console.log(tipo)
     if (tipo == true) {
         tbTutores.doQuery("usuario = '" + user + "'").then((resultado) => {
-            if (user == resultado[0].usuario && pass == resultado[0].pass) {
-                console.log("Has iniciado sesion!")
-                global.nombreUser = user
-                global.idtutor = resultado[0].idtutor
-                res.redirect("crud_horas?tutor=" +  user)
-            } else {
-                console.log("Error datos incorrectos")
-                res.render("errorInicio")
-            }
-                
+            
+            
+            bcrypt.compare(pass, resultado[0].pass, function (err, result) {
+                if (result == true) {
+                    global.nombreUser = user
+                    global.idtutor = resultado[0].idtutor
+                    res.redirect("crud_horas?tutor=" +  user)
+                } else {
+                    console.log("Error datos incorrectos")
+                    res.render("errorInicio")
+                }
+            });
     
         }).catch((error) => {
             console.log("Error datos incorrectos")
             res.render("errorInicio")
         })
     } else {
+        console.log("entro")
         tbUsuarios.doQuery("carnet = '" + user + "'").then((resultado) => {
-            if (user == resultado[0].carnet && pass == resultado[0].pass) {
-                console.log("Has iniciado sesion! xD")
-                //console.log(resultado[0])
-                global.nombreUser = user
-                res.redirect("inicioestudiante?user=" + resultado[0].carnet)
 
-            } else {
-                console.log("Error datos incorrectos")
-                res.render("errorInicio")
-            }
-                
-    
+            bcrypt.compare(pass, resultado[0].pass, function (err, result) {
+                if (result == true) {
+                    global.nombreUser = user
+                    res.redirect("inicioestudiante?user=" + resultado[0].carnet)
+                } else {
+                    console.log("Error datos incorrectos")
+                    res.render("errorInicio")
+                }
+            });
         }).catch((error) => {
             console.log("Error datos incorrectos")
             res.render("errorInicio")
         })
     }
-    
-
-
-    
 })
 
 router.get("/errorInicio", (req, res) => {
@@ -147,9 +148,11 @@ router.get("/errorInicio", (req, res) => {
 
 
 // Agregar nuevo estudiante
-router.post('/registrado', function (req, res, next) {
+router.post('/registrado', async (req, res, next) =>{
 
     let carnet = req.body.carnet;
+    let pass = await bcrypt.hash(req.body.pass, 10)
+    console.log(pass)
     let nombres = req.body.nombres;
     let apellidos = req.body.apellidos;
     let telefono = req.body.telefono;
@@ -161,6 +164,9 @@ router.post('/registrado', function (req, res, next) {
     let estado = req.body.estado;
     let idtutor = req.body.idtutor;
     let errors = false;
+    
+    let pases = await bcrypt.hash("111", 10)
+    console.log(pases)
 
 
     var tbUsuarios = new tabla("estudiante", conn)
@@ -168,7 +174,7 @@ router.post('/registrado', function (req, res, next) {
     tbUsuarios.setTypes(["string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "other"])
 
     
-    tbUsuarios.insert([carnet, "a", nombres, apellidos, "1234-2222", "a", facultad, area, codigocarrera, email, estado, idtutor])
+    tbUsuarios.insert([carnet, pass, nombres, apellidos, telefono, "a", facultad, area, codigocarrera, email, estado, idtutor])
 
     // Si no hay errores
     if (errors) {

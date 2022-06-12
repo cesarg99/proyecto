@@ -7,35 +7,46 @@
         
     </head>
     <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <div class="menu"><img src="images/minerva_sola_white.png" style="width:90px;height:120px;"/>UES Universidad de El Salvador</div>
         <div class="container" style="padding-top: 40px; padding-left: 90px;">
             
-            <div >
-            <form action="logeado", method="POST">
-                <div >
-                <label>Nombre de usuario</label><br>
-                <input type="text" name="user"><br>
-            </div>
-            <div ></div>
-                <label>Password</label><br>
-                <input type="text" name="password"><br>
-            </div>
-            <div ></div>
+<div>
+    <form action="logeado" , method="POST" style="padding: 20px; padding-left: 250px">
+        <div style="padding: 10px">
+            <label>Nombre de usuario</label><br>
+            <input style="width: 400px; border-radius: 2px;" type="text" name="user"><br>
+        </div>
+
+        <div style="padding: 10px;">
+            <label>Password</label><br>
+            <input style="width: 400px; border-radius: 2px;" type="text" name="password"><br>
+        </div>
+
+        <label>Si eres tutor inicia sesión marcando el check</label>
+        <div style="padding: 10px;">
+            <div>
                 <input type="checkbox" value="1" name="tutor">
-                <input type="submit"><br>
             </div>
-            </form>
-            <hr>
-            <div class="flex-container" style="padding-left: 200px;">
-                <div>
-                    <a class="btn btn-primary" href="inicioRegistro">Registrar</a>
-                </div>
-                <div>
-                    <p> Empieza tus procesos de horas sociales! Registrate!</p>
-                </div>
-                
+            
+            <div style="padding-left: 150px;">
+                <input  class="btn btn-primary" type="submit" value="Iniciar Sesión"><br>
             </div>
+            
         </div>
+    </form>
+    <hr>
+    <div class="flex-container" style="padding-left: 200px;">
+        <div>
+            <a class="btn btn-primary" href="inicioRegistro">Registrar</a>
         </div>
-    </body>
+        <div>
+            <p> Empieza tus procesos de horas sociales! Registrate!</p>
+        </div>
+    
+    </div>
+</div>
+</div>
+</body>
+
 </html>

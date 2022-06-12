@@ -1,3 +1,11 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-06-2022 a las 03:29:08
+-- Versión del servidor: 10.1.25-MariaDB
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -10,10 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+
+CREATE DATABASE serviciosocial;
 --
 -- Base de datos: `serviciosocial`
 --
-CREATE DATABASE serviciosocial;
+
 -- --------------------------------------------------------
 
 --
@@ -27,6 +37,15 @@ CREATE TABLE `controlhoras` (
   `institucion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `carnet` varchar(10) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `controlhoras`
+--
+
+INSERT INTO `controlhoras` (`numhoras`, `fechainicio`, `fechafinal`, `institucion`, `carnet`) VALUES
+(20, '2022-06-14', '2022-06-16', 'INS', 'CG19030'),
+(20, '2022-06-13', '2022-06-15', 'INS', 'CG19030'),
+(60, '2022-06-15', '2022-06-16', 'INS', 'CG19030');
 
 -- --------------------------------------------------------
 
@@ -44,6 +63,17 @@ CREATE TABLE `docente` (
   `usuario` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(20) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `docente`
+--
+
+INSERT INTO `docente` (`idtutor`, `nombres`, `apellidos`, `facultad`, `telefono`, `direccion`, `usuario`, `pass`) VALUES
+(1001, 'Juan Francisco', 'Gutierrez Velasco', 'Facultad de Ciencias Agronomicas', 74856859, 'Ave. Norte', 'FG0911', '111'),
+(1002, 'Natalia Andrea', 'Ovalle Solano', 'Facultad de Ciencias Economicas', 79682536, 'Av. Nueva Concepcion', 'AO2050', '222'),
+(1003, 'Oscar Fabian', 'Fuentes Perdomo', 'Facultad de Odontologia', 73659874, 'Av. 16 de Julio', 'PF3012', '333'),
+(1004, 'Rafael Alejandro', 'Alvarez Castillo', 'Facultad de Ingenieria y Arquitectura', 71245685, 'Plaza Constitucion No 1', 'AC7011', '444'),
+(1005, 'Jorge Esteban', 'Sanchez Parada', 'Facultad de Ciencias y Humanidades', 76356895, 'Av. Juarez', 'EP6041', '555');
 
 -- --------------------------------------------------------
 
@@ -65,6 +95,14 @@ CREATE TABLE `estudiante` (
   `estado` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
   `idtutor` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estudiante`
+--
+
+INSERT INTO `estudiante` (`carnet`, `pass`, `nombres`, `apellidos`, `telefono`, `carrera`, `facultad`, `area`, `codigocarrera`, `email`, `estado`, `idtutor`) VALUES
+('CG19030', '', 'Julio', 'Cruz', '7292537', 'Ingeniería de S', 'Facultad de Ciencias Econ', 'S', 'E10101', 'jcesargarcia051', 'en revision', 1001),
+('OF29120', '', 'Juan', 'Rivas', '75214141', 'Ingenieria Agro', 'Facultad de Ciencias Agro', 'dd', 'B10101', 'asjajs@gmail.co', 'en proceso', 1001);
 
 --
 -- Índices para tablas volcadas

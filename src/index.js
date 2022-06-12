@@ -22,3 +22,6 @@ app.use(require("./routes/index.js"))
 app.listen(app.get("port"), () => {
     console.log("Corriendo")
 })
+
+
+app.use(express.static(__dirname + '/public'));
