@@ -44,6 +44,8 @@ router.get("/deleted", (req, res) => {
 
 // ==== LOGIN FINAL ====
 router.get("/login", (req, res) => {
+    var nombreUser = null
+    var idtutor = null
     res.render("login")
 })
 

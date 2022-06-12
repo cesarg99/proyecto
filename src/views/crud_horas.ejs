@@ -23,17 +23,18 @@
                     <td><%= resultado[i].apellido %></td>
                     <td><%= resultado[i].tutornombres %></td>
                     <td><%= resultado[i].total %></td>
-                    <td><%= resultado[i].estado %></td>
+                    <td id="ides_<%= i %>"><%= resultado[i].estado %></td>
                     <label><%= JSON.stringify(resultado[i]) %></label>
                     <td id="idtd_<%= i %>"><button onclick="fAprobar(<%= JSON.stringify(resultado[i]) %>)">Aprobar</button></td>
                     <script>
                         // Dentro de jquey se utiliza ejs.
                         // Refrescar jquery en cada carga.
-                        $((window).onload("load", () => {
+                        $(window).load(() => {
                         if(<%= resultado[i].total %> < 250) {
                             $("#idtd_" + <%= i %>).hide()
                         }else{
                             $("#idtd_" + <%= i %>).show()
+                            $("#ides_" + <%= i %>).text("aprobado")
                         }
                         })
                         
@@ -64,8 +65,6 @@
                 http.open("GET", "/estudianteEstado?resultado=" + JSON.stringify(resultado))
                 http.send()
                 window.location.reload()
-                
-                
             }
         </script>
     </body>

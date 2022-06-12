@@ -11,7 +11,7 @@ app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 
 // Middleware.
-// app.use(flash())
+app.use(flash())
 app.use(bodyParser.urlencoded({ extend: false}))
 app.use(bodyParser.json())
 app.use(require("./routes/index.js"))
