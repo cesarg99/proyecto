@@ -2,18 +2,40 @@
 <html>
     <head>
         <title>Inicio de sesion</title>
+        <link rel="stylesheet" type="text/css" href="css/oldstyle.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        
     </head>
     <body>
-        <div>
+        <div class="menu"><img src="images/minerva_sola_white.png" style="width:90px;height:120px;"/>UES Universidad de El Salvador</div>
+        <div class="container" style="padding-top: 40px; padding-left: 90px;">
+            
+            <div >
             <form action="logeado", method="POST">
+                <div >
                 <label>Nombre de usuario</label><br>
                 <input type="text" name="user"><br>
+            </div>
+            <div ></div>
                 <label>Password</label><br>
                 <input type="text" name="password"><br>
+            </div>
+            <div ></div>
                 <input type="checkbox" value="1" name="tutor">
                 <input type="submit"><br>
+            </div>
             </form>
-            <a href="inicioRegistro">Registrar</a>
+            <hr>
+            <div class="flex-container" style="padding-left: 200px;">
+                <div>
+                    <a class="btn btn-primary" href="inicioRegistro">Registrar</a>
+                </div>
+                <div>
+                    <p> Empieza tus procesos de horas sociales! Registrate!</p>
+                </div>
+                
+            </div>
+        </div>
         </div>
     </body>
 </html>

@@ -1,0 +1,68 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Barra Lateral</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+    </style>
+</head>
+<body>
+   
+    <div class="wrapper">
+        <div class="section">
+            <div class="top_navbar">
+                <div class="hamburger">
+                    <a href="#">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+            </div>
+             
+        </div>
+        <div class="sidebar">
+            <div class="profile">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="profile_picture">
+                <h3><%= global.nombreUser %></h3>
+                <p>Servicio Social</p>
+            </div>
+            <ul>
+                <li>
+                    <a href="../inicioestudiante" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../progreso1">
+                        <span class="icon"><i class="fas fa-desktop"></i></span>
+                        <span class="item">Mi Progreso</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../registrarhoras">
+                        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                        <span class="item">Registrar Horas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./login">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Cerrar Sesion</span>
+                    </a>
+                </li>
+                <li>
+
+            </ul>
+        </div>
+        
+    </div>
+   
+  <script>
+       var hamburger = document.querySelector(".hamburger");
+	hamburger.addEventListener("click", function(){
+		document.querySelector("body").classList.toggle("active");
+	})
+  </script>

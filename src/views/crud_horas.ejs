@@ -1,31 +1,80 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Document</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
+    </style>
     </head>
     <body>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <label>Hola</label>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+        <div class="wrapper">
+            <div class="section">
+                <div class="top_navbar">
+                    <div class="hamburger">
+                        
+                    </div>
+                </div>
+                 
+            </div>
+            <div class="sidebar" >
+                <div class="profile">
+                    <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
+                    <h3><%= resultado[0].tutornombres %></h3>
+                    <p>Docente</p>
+                </div>
+                <ul>
+                    <li>
+                        <a href="#" class="active">
+                            <span class="icon"><i class="fas fa-home"></i></span>
+                            <span class="item">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/login">
+                            <span ><i class="fas fa-desktop"></i></span>
+                            <span >Cerrar sesión</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+        <div class="flex-container-2">
         
-        <table>
+        <div class="box" id="position-layer">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <th>carnet</th>
+                <th scope="col">carnet</th>
                 <th>estudiante nombres</th>
                 <th>estudiante apellidos</th>
                 <th>tutor nombres</th>
                 <th>total horas</th>
                 <th>estado</th>
             </tr>
+        </thead>
             <% for(var i = 0; i < resultado.length; i++) { %>
                 <tr id="id_<%= i %>">
-                    <td><%= resultado[i].carnet %></td>
-                    <td><%= resultado[i].nombre %></td>
-                    <td><%= resultado[i].apellido %></td>
-                    <td><%= resultado[i].tutornombres %></td>
-                    <td><%= resultado[i].total %></td>
-                    <td id="ides_<%= i %>"><%= resultado[i].estado %></td>
-                    <label><%= JSON.stringify(resultado[i]) %></label>
-                    <td id="idtd_<%= i %>"><button onclick="fAprobar(<%= JSON.stringify(resultado[i]) %>)">Aprobar</button></td>
+                    <td class="form-group"><%= resultado[i].carnet %></td>
+                    <td class="form-group"><%= resultado[i].nombre %></td>
+                    <td class="form-group"><%= resultado[i].apellido %></td>
+                    <td class="form-group"><%= resultado[i].tutornombres %></td>
+                    <td class="form-group"><%= resultado[i].total %></td>
+                    <td class="form-group" id="ides_<%= i %>"><%= resultado[i].estado %></td>
+                    
+                    <td id="idtd_<%= i %>"><button class="btn btn-primary" onclick="fAprobar(<%= JSON.stringify(resultado[i]) %>)">Aprobar</button></td>
                     <script>
                         // Dentro de jquey se utiliza ejs.
                         // Refrescar jquery en cada carga.
@@ -44,12 +93,8 @@
                 
             <% } %>
         </table>
-        <style>
-            table, td{
-                border: 1px solid;
-            }
-        </style>    
-
+    </div>
+</div>
         <script>
             function fAprobar(resultado) {
                 // Peticion al servidor asincrona.

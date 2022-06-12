@@ -14,6 +14,8 @@ app.set("views", path.join(__dirname, "views"))
 app.use(flash())
 app.use(bodyParser.urlencoded({ extend: false}))
 app.use(bodyParser.json())
+ //better and newer way than first answer
+ app.use(express.static(__dirname + '/public'));
 app.use(require("./routes/index.js"))
 
 
