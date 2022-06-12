@@ -18,3 +18,5 @@ Las paginas se manejan con node js y ayuda de las librerias para el motor de vis
 - [x] Creación de las vistas.
 - [X] Proyecto funcional.
 - [x] Mejora de interfaz.
+
+Finalizado
