@@ -1,21 +1,8 @@
-
-<div id="nav">
-    <div class="titulonav">
-    Opciones
-    </div>
-    
-    <div class="cuerporec">
-    <ul>
-       <li><a href="./inicioestudiante">Inicio</a></li>
-       <li><a href="./progreso1">Mi progreso</a></li>
-       <li><a href="./registrarhoras">Registrar Horas</a></li>
-       <li><a href="#">Otro</a></li>
-    </ul>
-    </div>
- </div>
+<%- include('./barralateral'); %>
 <!-- TABLA DATOS ESTUDIANTE -->
-
-<table border="2px">
+<br>
+<table border="2px" class="center">
+    <h5 class="center">(Cuando llegue al total de 500 horas podra enviar su proceso de servicio social)</h5>
     <tr>
         <td>Nombre</td>
         <td>Apellido</td>
@@ -37,7 +24,8 @@
 
 <!-- Numero de horas-->
 
-<table border="6px">
+<table border="6px" class="center">
+
     <tr>
         <td>Numero de Horas</td>
     </tr>
@@ -54,7 +42,8 @@
 
 <!-- Calcular total horas -->
 
-<table border="2px">
+<table border="2px" class="center">
+
 <tr>
 <td>
 <% var suma = 0;  %>
@@ -63,7 +52,7 @@
     
 <% }); %>
 
-<% if (suma>=100) {%>
+<% if (suma>=500) {%>
     <br>
     <label>Horas Alcanzadas</label>
     <br>
