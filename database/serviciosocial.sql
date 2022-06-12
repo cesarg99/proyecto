@@ -7,27 +7,18 @@
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 CREATE DATABASE serviciosocial;
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
 -- Base de datos: `serviciosocial`
---
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `controlhoras`
 --
-
 CREATE TABLE `controlhoras` (
   `numhoras` int(5) NOT NULL,
   `fechainicio` date NOT NULL,
@@ -35,13 +26,9 @@ CREATE TABLE `controlhoras` (
   `descripcion` varchar(35) COLLATE utf8_spanish_ci NOT NULL,
   `idestudiante` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `estudiante`
 --
-
 CREATE TABLE `estudiante` (
   `idestudiante` int(4) NOT NULL,
   `nombres` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
@@ -55,21 +42,17 @@ CREATE TABLE `estudiante` (
   `estado` varchar(10) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `login`
 --
 
 CREATE TABLE `login` (
-  `user` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `pass` varchar(10) COLLATE utf8_spanish_ci NOT NULL
+  `user` varchar(25) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(150) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
 --
 -- Índices para tablas volcadas
 --
-
 --
 -- Indices de la tabla `controlhoras`
 --
@@ -87,7 +70,6 @@ ALTER TABLE `estudiante`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
 --
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
@@ -97,14 +79,12 @@ ALTER TABLE `estudiante`
 --
 -- Restricciones para tablas volcadas
 --
-
 --
 -- Filtros para la tabla `controlhoras`
 --
 ALTER TABLE `controlhoras`
   ADD CONSTRAINT `controlhoras_ibfk_1` FOREIGN KEY (`idestudiante`) REFERENCES `estudiante` (`idestudiante`);
 COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
