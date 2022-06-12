@@ -16,5 +16,5 @@ Las paginas se manejan con node js y ayuda de las librerias para el motor de vis
 - **En progreso**
 - [x] Implementación del ORM.
 - [x] Creación de las vistas.
-- [ ] Proyecto funcional.
+- [X] Proyecto funcional.
 - [ ] Mejora de interfaz.
