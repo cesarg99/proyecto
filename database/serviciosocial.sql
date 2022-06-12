@@ -6,6 +6,7 @@
 -- Tiempo de generación: 18-05-2022 a las 15:56:24
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
+CREATE DATABASE serviciosocial;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
