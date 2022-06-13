@@ -162,7 +162,7 @@ router.post('/registrado', async (req, res, next) =>{
     let area = req.body.area;
     let codigocarrera = req.body.codigocarrera;
     let email = req.body.email;
-    let estado = req.body.estado;
+    let estado = "en proceso"
     let idtutor = req.body.idtutor;
     let errors = false;
     
@@ -245,7 +245,8 @@ router.get('/progreso1', function(req, res, next) {
           return console.log('error: ' + err.message);
         }
         conn.query("SELECT * FROM controlhoras WHERE carnet='" + global.nombreUser + "'", function(err, resultado3) {
-          if (err) {
+            if (err) {
+              // select sum(controlhoras.numhoras) from estudiante inner join controlhoras on estudiante.carnet = controlhoras.carnet
             return console.log('error: ' + err.message);
           }
           res.render('./progreso1', {

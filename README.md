@@ -1,3 +1,29 @@
+# **LEEME - INSTALACION**
+- ## Instalación base de datos.
+<p align="justify"> 
+Utilizar MySql o PhpMyAdmin y cargar el archivo serviciosocialfinal.sql ó otros si se presenta error con el script y ejecutar la query.
+</p>
+
+- ## Conexión base de datos.
+<p align="justify"> 
+Ir a la carpeta raíz "proyecto" luego ir a la carpeta orm y editar archivo orm.
+Modificar el objeto de javascript con información de conexión.
+</p>
+
+- ## Ejecutar el servidor local.
+<p align="justify"> 
+Abrir una consola en la carpeta raíz "proyecto" y escribir: 
+<b>node ./src/index.js</b>
+</p>
+
+- ## Visualizar.
+<p align="justify"> 
+En la barra de busqueda del navegador
+colocar <b>localhost:3000/login</b>
+<b>node ./src/index.js</b>
+</p>
+
+
 # **Proyecto Herramientas de Productividad**
 ## Desarrollo
 

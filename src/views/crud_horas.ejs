@@ -30,7 +30,7 @@
             </div>
             <div class="sidebar" >
                 <div class="profile">
-                    <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="profile_picture">
                     <h3><%= global.nombreUser %></h3>
                     <p>Docente</p>
                 </div>
@@ -74,7 +74,7 @@
                     <td class="form-group"><%= resultado[i].total %></td>
                     <td class="form-group" id="ides_<%= i %>"><%= resultado[i].estado %></td>
                     <% var datos = JSON.stringify(resultado[i]) %>
-                    <%= resultado[i].total %>
+                    
                     <td id="idtd_<%= i %>"><button class="btn btn-primary" onclick="fAprobar(<%= datos %>, <%= i %>)">Aprobar</button></td>
                     
                     <script>

@@ -2,12 +2,14 @@ var mysql = require("mysql")
 var util = require("util")
 var _ = require("underscore")
 
+// =================================== MODIFICAR ====================================
 var conn = mysql.createConnection({
 	host:'localhost',
 	user:'root',
 	password:'root',
 	database:'serviciosocial_1'
 })
+// ==================================================================================
 
 // Clase y constructor.
 function tabla(nombre, conn) {

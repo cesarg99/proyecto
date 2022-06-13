@@ -9,16 +9,16 @@
 	text-decoration: none;
 	outline: none;
 	color: #fff;
-	background-color: #4CAF50;
+	background-color: #d61e0e;
 	border: none;
 	border-radius: 15px;
 	box-shadow: 0 9px #999;
   }
   
-  .btn :hover {background-color: #3e8e41}
+  .btn :hover {background-color: #d61e0e}
   
   .btn :active {
-	background-color: #3e8e41;
+	background-color: #d61e0e;
 	box-shadow: 0 5px #666;
 	transform: translateY(4px);
   }
@@ -26,14 +26,14 @@
 .center {
     margin: auto;
     width: 50%;
-    border: 3px solid green;
+    border: 3px solid #d61e0e;
     padding: 10px;
   }
 
   .center2 {
     margin: auto;
     width: 15%;
-    border: 3px solid green;
+    border: 3px solid #d61e0e;
     padding: 10px;
   }
 
@@ -53,7 +53,7 @@ body{
 }
 
 .wrapper .sidebar{
-	background: rgb(5, 68, 104);
+	background: rgb(199, 8, 8);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -89,7 +89,7 @@ body{
 .wrapper .sidebar ul li a{
 	display: block;
 	padding: 13px 30px;
-	border-bottom: 1px solid #10558d;
+	border-bottom: 1px solid #d61e0e;
 	color: rgb(241, 237, 237);
 	font-size: 16px;
 	position: relative;
@@ -105,7 +105,7 @@ body{
 
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
-	color: #0c7db1;
+	color: #d61e0e;
 
 	background:white;
     border-right: 2px solid rgb(5, 68, 104);
@@ -113,7 +113,7 @@ body{
 
 .wrapper .sidebar ul li a:hover .icon,
 .wrapper .sidebar ul li a.active .icon{
-	color: #0c7db1;
+	color: #d61e0e;
 }
 
 .wrapper .sidebar ul li a:hover:before,
@@ -128,7 +128,7 @@ body{
 }
 
 .wrapper .section .top_navbar{
-	background: rgb(7, 105, 185);
+	background: rgb(185, 7, 7);
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -170,7 +170,7 @@ body{
 }
 
 .wrapper .sidebar{
-	background: rgb(5, 68, 104);
+	background: rgb(188, 16, 16);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -206,7 +206,7 @@ body{
 .wrapper .sidebar ul li a{
 	display: block;
 	padding: 13px 30px;
-	border-bottom: 1px solid #10558d;
+	border-bottom: 1px solid #d61e0e;
 	color: rgb(241, 237, 237);
 	font-size: 16px;
 	position: relative;
@@ -222,15 +222,15 @@ body{
 
 .wrapper .sidebar ul li a:hover,
 .wrapper .sidebar ul li a.active{
-	color: #0c7db1;
+	color: #d61e0e;
 
 	background:white;
-    border-right: 2px solid rgb(5, 68, 104);
+    border-right: 2px solid rgb(233, 12, 12);
 }
 
 .wrapper .sidebar ul li a:hover .icon,
 .wrapper .sidebar ul li a.active .icon{
-	color: #0c7db1;
+	color: #d61e0e;
 }
 
 .wrapper .sidebar ul li a:hover:before,
@@ -245,7 +245,7 @@ body{
 }
 
 .wrapper .section .top_navbar{
-	background: rgb(7, 105, 185);
+	background: rgb(185, 34, 7);
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -272,6 +272,7 @@ body.active .wrapper .section{
 	margin-left: 0;
 	width: 100%;
 }
+
 
 
 .box {
