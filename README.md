@@ -20,7 +20,6 @@ Abrir una consola en la carpeta raíz "proyecto" y escribir:
 <p align="justify"> 
 En la barra de busqueda del navegador
 colocar <b>localhost:3000/login</b>
-<b>node ./src/index.js</b>
 </p>
 
 
