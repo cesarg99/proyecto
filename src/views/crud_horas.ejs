@@ -18,7 +18,7 @@
     <body>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <div class="wrapper">
             <div class="section">
                 <div class="top_navbar">
@@ -31,7 +31,7 @@
             <div class="sidebar" >
                 <div class="profile">
                     <img src="https://1.bp.blogspot.com/-vhmWFWO2r8U/YLjr2A57toI/AAAAAAAACO4/0GBonlEZPmAiQW4uvkCTm5LvlJVd_-l_wCNcBGAsYHQ/s16000/team-1-2.jpg" alt="profile_picture">
-                    <h3><%= resultado[0].tutornombres %></h3>
+                    <h3><%= global.nombreUser %></h3>
                     <p>Docente</p>
                 </div>
                 <ul>
@@ -73,20 +73,18 @@
                     <td class="form-group"><%= resultado[i].tutornombres %></td>
                     <td class="form-group"><%= resultado[i].total %></td>
                     <td class="form-group" id="ides_<%= i %>"><%= resultado[i].estado %></td>
+                    <% var datos = JSON.stringify(resultado[i]) %>
+                    <%= resultado[i].total %>
+                    <td id="idtd_<%= i %>"><button class="btn btn-primary" onclick="fAprobar(<%= datos %>, <%= i %>)">Aprobar</button></td>
                     
-                    <td id="idtd_<%= i %>"><button class="btn btn-primary" onclick="fAprobar(<%= JSON.stringify(resultado[i]) %>)">Aprobar</button></td>
                     <script>
-                        // Dentro de jquey se utiliza ejs.
-                        // Refrescar jquery en cada carga.
-                        $(window).load(() => {
-                        if(<%= resultado[i].total %> < 250) {
-                            $("#idtd_" + <%= i %>).hide()
-                        }else{
-                            $("#idtd_" + <%= i %>).show()
-                            $("#ides_" + <%= i %>).text("aprobado")
-                        }
-                        })
-                        
+                        $(document).ready(function(){
+                            if(<%= resultado[i].total %> < 500 || <%= resultado[i].id %> != <%= global.idtutor %>){
+                                $("#idtd_" + <%= i %>).hide()
+                            }else{
+                                $("#idtd_" + <%= i %>).show()
+                            }
+                        });
                     </script>
                     
                 </tr>
@@ -96,21 +94,25 @@
     </div>
 </div>
         <script>
-            function fAprobar(resultado) {
+            function fAprobar(resultado, id) {
                 // Peticion al servidor asincrona.
                 var http = new XMLHttpRequest()
 
-                http.onreadystatechange = function() {
-                if (http.readyState == 4) { // xmlhttp.status==200 == successful request
-                        // What you want here
-                        window.location.href("/crud_horas")
-                    }
-                }
+                
 
+                //window.location.href("/crud_horas")
+                console.log(JSON.stringify(resultado))
                 http.open("GET", "/estudianteEstado?resultado=" + JSON.stringify(resultado))
                 http.send()
-                window.location.reload()
+            
+                $(document).ready(function(){
+                    $("#ides_" + id).text("aprobado")
+                    alert(id)
+                });
+                
             }
+
+            
         </script>
     </body>
 </html>

@@ -108,8 +108,9 @@ router.post("/logeado", (req, res) => {
             
             
             bcrypt.compare(pass, resultado[0].pass, function (err, result) {
-                if (result == true) {
-                    global.nombreUser = user
+                if (result == true && user == resultado[0].usuario) {
+                    console.log(resultado[0].usuario)
+                    global.nombreUser = resultado[0].usuario
                     global.idtutor = resultado[0].idtutor
                     res.redirect("crud_horas?tutor=" +  user)
                 } else {
@@ -127,8 +128,8 @@ router.post("/logeado", (req, res) => {
         tbUsuarios.doQuery("carnet = '" + user + "'").then((resultado) => {
 
             bcrypt.compare(pass, resultado[0].pass, function (err, result) {
-                if (result == true) {
-                    global.nombreUser = user
+                if (result == true && user == resultado[0].carnet) {
+                    global.nombreUser = resultado[0].carnet
                     res.redirect("inicioestudiante?user=" + resultado[0].carnet)
                 } else {
                     console.log("Error datos incorrectos")
@@ -197,7 +198,8 @@ router.get("/inicioRegistro", (req, res) => {
 router.get("/crud_horas", (req, res) => {
     console.log("entrando")
     console.log(global.idtutor)
-    conn.query("select estudiante.carnet as carnet, estudiante.nombres as nombre, estudiante.apellidos apellido, docente.nombres tutornombres, sum(controlhoras.numhoras) as total, estudiante.estado as estado from estudiante inner join docente on estudiante.idtutor = " + global.idtutor + " inner join controlhoras on estudiante.carnet = controlhoras.carnet group by estudiante.carnet", (err, rs) => {
+    conn.query("select estudiante.carnet as carnet, docente.idtutor as id, estudiante.nombres as nombre, estudiante.apellidos as apellido, docente.nombres as tutornombres, sum(controlhoras.numhoras) as total, estudiante.estado as estado from estudiante inner join docente on estudiante.idtutor = docente.idtutor inner join controlhoras on estudiante.carnet = controlhoras.carnet group by estudiante.carnet", (err, rs) => {
+        //"select estudiante.carnet as carnet, estudiante.nombres as nombre, estudiante.apellidos"
         res.render("crud_horas", { resultado:rs})
         
     })
@@ -219,6 +221,7 @@ router.get("/estudianteEstado", (req, res) => {
 
         
         
+        res.render("aprobed")
     })
     
     
@@ -241,7 +244,7 @@ router.get('/progreso1', function(req, res, next) {
         if (err) {
           return console.log('error: ' + err.message);
         }
-        conn.query("SELECT * FROM controlhoras WHERE carnet='CG19030'", function(err, resultado3) {
+        conn.query("SELECT * FROM controlhoras WHERE carnet='" + global.nombreUser + "'", function(err, resultado3) {
           if (err) {
             return console.log('error: ' + err.message);
           }
@@ -331,7 +334,8 @@ router.post('/registrarhoras2', function(req, res, next) {
               })
           } else {                
             
-            res.send('Horas registradas ');
+              res.render('inicioestudiante');
+              
             
           }
       })
@@ -370,11 +374,15 @@ router.post('/progreso1', function(req, res, next) {
               })
           } else {                
             
-            res.send('Proceso social enviado correctamente');
+            res.render("progreso1")
             
           }
       })
   }
+})
+
+router.get("/aprobed", (req, res) => {
+    res.render("aprobed")
 })
 
 

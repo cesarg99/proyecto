@@ -305,3 +305,7 @@ body.active .wrapper .section{
 .flex-container-2 div{
   display: flex;
 }
+
+.menuactivo {
+	background-color: white;
+}
