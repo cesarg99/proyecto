@@ -24,11 +24,11 @@ colocar <b>localhost:3000/login</b>
 
 - ## Usuarios docentes.
 <p align="justify">
-  -** user: FG0911 password: 111
-  -** user: AO2050 password: 222
-  -** user: PF3012 password: 333
-  -** user: AC7011 password: 444
-  -** user: EP6041 password: 555
+  * user: FG0911 password: 111<br>
+  * user: AO2050 password: 222<br>
+  * user: PF3012 password: 333<br>
+  * user: AC7011 password: 444<br>
+  * user: EP6041 password: 555<br>
 
 # **Proyecto Herramientas de Productividad**
 ## Desarrollo
