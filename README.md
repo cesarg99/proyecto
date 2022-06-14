@@ -22,6 +22,13 @@ En la barra de busqueda del navegador
 colocar <b>localhost:3000/login</b>
 </p>
 
+- ## Usuarios docentes.
+<p align="justify">
+  -** user: FG0911 password: 111
+  -** user: AO2050 password: 222
+  -** user: PF3012 password: 333
+  -** user: AC7011 password: 444
+  -** user: EP6041 password: 555
 
 # **Proyecto Herramientas de Productividad**
 ## Desarrollo
